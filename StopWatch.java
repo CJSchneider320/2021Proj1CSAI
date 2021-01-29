@@ -1,5 +1,5 @@
 package Proj1;
-//hello
+
 
 import java.io.*;
 import java.util.Scanner;
@@ -59,6 +59,7 @@ public class StopWatch  {
 
 		if (seconds < 0)
 			throw new IllegalArgumentException();
+		it wont let me committttttt
 
 		//TO DO: finish code - check milliseconds
 		//TO DO: assign input parameters to instance variables
