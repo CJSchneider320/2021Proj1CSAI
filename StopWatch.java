@@ -55,16 +55,19 @@ public class StopWatch  {
 		//TO DO: finish code
 	}
 
-	public StopWatch(int minutes, int seconds, int milliseconds) {
-		if (minutes < 0)
+	public StopWatch(int min, int sec, int millisec) {
+		if (min < 0)
 			throw new IllegalArgumentException("constuctor with 3 params");
 
-		if (seconds < 0)
+		if (sec < 0 || sec > 59)
 			throw new IllegalArgumentException();
 
-		//TO DO: finish code - check milliseconds
-		//TO DO: assign input parameters to instance variables
+		if (millisec < 0 || millisec > 999)
+			throw new IllegalArgumentException();
 
+		minutes = min;
+		seconds = sec;
+		milliseconds = millisec;
 
 	}
 
