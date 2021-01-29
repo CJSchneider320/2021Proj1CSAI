@@ -28,7 +28,9 @@ public class StopWatch  {
 	private static boolean suspend = false;
 
 	public StopWatch() {
-		// TO DO:
+		minutes = 0;
+		seconds = 0;
+		milliseconds = 0;
 	}
 
 	/******************************************************************
