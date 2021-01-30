@@ -3,7 +3,13 @@ package Proj1;
 import javax.swing.*;
 
 public class StopWatchGUI {
-	public static void main(String arg[]){
+	public static void main(String args[]){
+
+		StopWatch test = new StopWatch("100:5:323");
+
+		System.out.println(test.getMinutes());
+		System.out.println(test.getSeconds());
+		System.out.println(test.getMilliseconds());
 
 		JMenu fileMenu;
 		JMenuItem quitItem;
@@ -26,6 +32,8 @@ public class StopWatchGUI {
 		gui.setJMenuBar(menus);
 		gui.pack();
 		gui.setVisible(true);
+
+
 	}
 
 

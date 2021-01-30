@@ -1,9 +1,6 @@
 package Proj1;
 
-// hello
-//Hi
-//Make sure we delete this later
-//Hello how are you
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -55,7 +52,57 @@ public class StopWatch  {
 		if (startTime == null)
 			throw new IllegalArgumentException();
 
-		//TO DO: finish code
+		if (startTime.length() >= 8) {
+			int colon = 0;
+			startTime = startTime + ":";
+			for (int inc = 0; inc < startTime.length(); inc = colon + 1) {
+				colon = startTime.indexOf(":", inc);
+				if (colon != -1) {
+					if (this.minutes == 0) {
+						this.minutes = Integer.valueOf(startTime.substring(inc, colon));
+						if (minutes < 0)
+							throw new IllegalArgumentException("constuctor with 3 params");
+					}
+					else if (this.seconds == 0) {
+						this.seconds = Integer.valueOf(startTime.substring(inc, colon));
+						if (seconds < 0 || seconds > 59)
+							throw new IllegalArgumentException();
+					}
+					else {
+						this.milliseconds = Integer.valueOf(startTime.substring(inc, colon));
+						if (milliseconds < 0 || milliseconds > 999)
+							throw new IllegalArgumentException();
+					}
+				}
+			}
+		}
+		else if (startTime.length() == 6){
+			int colon = 0;
+			startTime = startTime + ":";
+			for (int inc = 0; inc < startTime.length(); inc = colon + 1) {
+				colon = startTime.indexOf(":", inc);
+				if (colon != -1) {
+
+					if (seconds == 0) {
+						this.seconds = Integer.valueOf(startTime.substring(inc, colon));
+						if (seconds < 0 || seconds > 59)
+							throw new IllegalArgumentException();
+					}
+					else {
+						this.milliseconds = Integer.valueOf(startTime.substring(inc, colon));
+						if (milliseconds < 0 || milliseconds > 999)
+							throw new IllegalArgumentException();
+					}
+				}
+			}
+
+		}
+		else if (startTime.length() == 3){
+			this.milliseconds = Integer.valueOf(startTime);
+			if (milliseconds < 0 || milliseconds > 999)
+				throw new IllegalArgumentException();
+		}
+
 	}
 
 	public StopWatch(int minutes, int seconds, int milliseconds) {
@@ -212,7 +259,7 @@ public class StopWatch  {
 
 	public int getMinutes() {
 		//TO DO: finish logic
-		return 0; // place holder
+		return this.minutes;
 
 	}
 
@@ -222,7 +269,7 @@ public class StopWatch  {
 
 	public int getSeconds() {
 		//TO DO: finish logic
-		return 0; // place holder
+		return this.seconds;
 
 	}
 
@@ -232,7 +279,7 @@ public class StopWatch  {
 
 	public int getMilliseconds() {
 		//TO DO: finish logic
-		return 0; // place holder
+		return this.milliseconds;
 
 	}
 
