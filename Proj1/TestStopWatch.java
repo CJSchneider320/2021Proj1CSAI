@@ -9,6 +9,44 @@ public class TestStopWatch {
  * is functioning correctly.
  *
  */
+//The next 3 tests check to see if public StopWatch(min, secs, mill) will detect a failure
+
+@Test (expected = IllegalArgumentException.class)
+    public void testConstructorParametersMinutes() {
+        StopWatch s = new StopWatch(-1,2,3);
+    }
+
+@Test (expected = IllegalArgumentException.class)
+    public void testConstructorParametersSeconds() {
+        StopWatch s = new StopWatch(1, -1, 3);
+        StopWatch s1 = new StopWatch(1, 100, 2);
+    }
+
+@Test (expected = IllegalArgumentException.class)
+    public void testConstructorParametersMilliseconds() {
+        StopWatch s = new StopWatch(1,2,-1);
+        StopWatch s1 = new StopWatch(1,2,1000);
+    }
+
+//The next 3 tests check to see if public StopWatch(min, secs, mill) will not produce a failure
+
+@Test
+    public void testConstructorParametersSuccessMinutes() {
+        StopWatch s = new StopWatch(1, 2, 3);
+        StopWatch s1 =  new StopWatch(0, 2, 3);
+    }
+
+@Test
+    public void testConstructorParametersSuccessSeconds() {
+        StopWatch s = new StopWatch(1, 0, 3);
+        StopWatch s1 = new StopWatch(1, 59, 3);
+    }
+
+@Test
+    public void testConstructorParametersSuccessSeconds() {
+        StopWatch s = new StopWatch(1, 2, 0);
+        StopWatch s1 =  new StopWatch(1, 2, 999);
+    }
 
 //	// default constructor test
 //	@Test
