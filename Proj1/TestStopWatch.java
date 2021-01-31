@@ -16,16 +16,50 @@ public class TestStopWatch {
 //Tests the length of startTime to make sure it is correct
 
 @Test (expected = IllegalArgumentException.class)
-	public void testStartTimeLength(){
+	public void testStartTimeLength() {
 		StopWatch s = new StopWatch("4000");
-		StopWatch s1 = new StopWatch("400, 400");
-}
+	}
+
+@Test (expected = IllegalArgumentException.class)
+	public void testStartTimeLength2() {
+		StopWatch s = new StopWatch("400:400");
+	}
+
+@Test (expected = IllegalArgumentException.class)
+	public void testStartTimeLength3() {
+		StopWatch s = new StopWatch(":50:27:400");
+	}
+
+@Test (expected = IllegalArgumentException.class)
+	public void testStartTimeLength4() {
+		StopWatch s = new StopWatch(":27:400");
+	}
+
+@Test (expected = IllegalArgumentException.class)
+	public void testStartTimeLength5() {
+		StopWatch s = new StopWatch("50::400");
+	}
+
+@Test (expected = IllegalArgumentException.class)
+	public void testStartTimeLength6() {
+		StopWatch s = new StopWatch("50:27:");
+	}
+
+@Test (expected = IllegalArgumentException.class)
+	public void testStartTimeLength7() {
+		StopWatch s = new StopWatch(":27");
+	}
+
+@Test (expected = IllegalArgumentException.class)
+	public void testStartTimeLength8() {
+		StopWatch s7 = new StopWatch("50:");
+	}
 
 @Test
-        public void testStartTimeLength2(){
+        public void testStartTimeLengthCorrect(){
        	 	StopWatch s = new StopWatch("12:27:400");
         	StopWatch s1 = new StopWatch("40");
-        	StopWatch s2 = new StopWatch("5000:27:400");
+        	StopWatch s2 = new StopWatch("5000:50:400");
         	StopWatch s3 = new StopWatch("00:00:000");
         	StopWatch s4 = new StopWatch("");
     }
@@ -45,9 +79,12 @@ public class TestStopWatch {
 
 @Test (expected = IllegalArgumentException.class)
     public void testConstructorParametersMilliseconds() {
-        StopWatch s = new StopWatch(1,2,-1);
-        StopWatch s1 = new StopWatch(1,2,1000);
-    }
+	StopWatch s = new StopWatch(1, 2, -1);
+	}
+@Test (expected = IllegalArgumentException.class)
+	public void testConstructorParametersMilliseconds1() {
+		StopWatch s1 = new StopWatch(1,2,1000);
+	}
 
 //The next 3 tests check to see if public StopWatch(min, secs, mill) will not produce a failure
 
@@ -98,10 +135,20 @@ public class TestStopWatch {
 	public void testConstructor3ParametersX()
 	{
 		StopWatch s = new StopWatch(2,-3,4);
-		StopWatch s1 = new StopWatch(-2,3,4);
-		StopWatch s2 = new StopWatch(2,3,-4);
-
 	}
+
+	@Test (expected = IllegalArgumentException.class)
+	public void testConstructor3ParametersX1()
+	{
+		StopWatch s1 = new StopWatch(-2,3,4);
+	}
+
+	@Test (expected = IllegalArgumentException.class)
+	public void testConstructor3ParametersX2()
+	{
+		StopWatch s2 = new StopWatch(2,3,-4);
+	}
+
 
 	@Test (expected = IllegalArgumentException.class)
 	public void testConstructor3e2Parameters() {

@@ -76,6 +76,8 @@ public class StopWatch  {
 			if(startTime.charAt(i) == ':')
 				colonCount++;
 		}
+		if (colonCount > 2)
+			throw new IllegalArgumentException();
 		if (colonCount == 2) {
 			int colon;
 			startTime = startTime + ":";
@@ -83,17 +85,33 @@ public class StopWatch  {
 				colon = startTime.indexOf(":", inc);
 				if (colon != -1) {
 					if (this.minutes == 0) {
-						this.minutes = Integer.parseInt(startTime.substring(inc, colon));
+						try {
+							this.minutes = Integer.parseInt(startTime.substring(inc, colon));
+						}
+						catch (Exception e){
+							throw new IllegalArgumentException();
+						}
 						if (minutes < 0)
 							throw new IllegalArgumentException("constructor with 3 params");
 					}
 					else if (this.seconds == 0) {
-						this.seconds = Integer.parseInt(startTime.substring(inc, colon));
+						try {
+							this.seconds = Integer.parseInt(startTime.substring(inc, colon));
+						}
+						catch (Exception e){
+							throw new IllegalArgumentException();
+						}
+
 						if (seconds < 0 || seconds > 59)
 							throw new IllegalArgumentException();
 					}
 					else {
-						this.milliseconds = Integer.parseInt(startTime.substring(inc, colon));
+						try {
+							this.milliseconds = Integer.parseInt(startTime.substring(inc, colon));
+						}
+						catch (Exception e){
+							throw new IllegalArgumentException();
+						}
 						if (milliseconds < 0 || milliseconds > 999)
 							throw new IllegalArgumentException();
 					}
@@ -108,12 +126,22 @@ public class StopWatch  {
 				if (colon != -1) {
 
 					if (seconds == 0) {
-						this.seconds = Integer.parseInt(startTime.substring(inc, colon));
+						try {
+							this.seconds = Integer.parseInt(startTime.substring(inc, colon));
+						}
+						catch (Exception e){
+							throw new IllegalArgumentException();
+						}
 						if (seconds < 0 || seconds > 59)
 							throw new IllegalArgumentException();
 					}
 					else {
-						this.milliseconds = Integer.parseInt(startTime.substring(inc, colon));
+						try {
+							this.milliseconds = Integer.parseInt(startTime.substring(inc, colon));
+						}
+						catch (Exception e){
+							throw new IllegalArgumentException();
+						}
 						if (milliseconds < 0 || milliseconds > 999)
 							throw new IllegalArgumentException();
 					}
