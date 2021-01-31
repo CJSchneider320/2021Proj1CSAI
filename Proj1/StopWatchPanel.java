@@ -7,21 +7,21 @@ import java.awt.event.ActionListener;
 
 /**
  * Write a description  here.
- * 
+ *
  * @author Ferguson
  * @version April 7, 2020
  */
 public class StopWatchPanel extends JPanel{
-	
+
 	private StopWatch watch;
-    private Timer javaTimer;
-	
+	private Timer javaTimer;
+
 	JButton startButton;
 	JTextField minField, secField, milliField, addField, subField, newField;
 
 	JLabel lblTime;
 
-	public StopWatchPanel(){ 
+	public StopWatchPanel(){
 
 		// create the game object as well as the GUI1024 Frame
 		watch = new StopWatch();
@@ -65,7 +65,7 @@ public class StopWatchPanel extends JPanel{
 		add(new JButton("Continue"));
 
 
-		//TO DO:  Include code to instantiate objects 
+		//TO DO:  Include code to instantiate objects
 		//TO DO: and add them to the JPanel -
 		//TO DO: see project description for layout
 		add (new JLabel(" "));
@@ -88,7 +88,7 @@ public class StopWatchPanel extends JPanel{
 			int mins, sec, milli, p;
 
 			if (event.getSource() == startButton){
-				try{  
+				try{
 					mins = Integer.parseInt(minField.getText());
 					sec = Integer.parseInt(secField.getText());
 					milli = Integer.parseInt(milliField.getText());
@@ -101,22 +101,22 @@ public class StopWatchPanel extends JPanel{
 				}
 			}
 
-	//TO DO:  Include ifs for each JButton
+			//TO DO:  Include ifs for each JButton
 
 			lblTime.setText(watch.toString());
 		}
 
 	}
-	
+
 	private class TimerListener implements ActionListener {
 
-        public void actionPerformed(ActionEvent e) {
-        	watch.add(1);
+		public void actionPerformed(ActionEvent e) {
 			watch.add(1);
 			watch.add(1);
 			watch.add(1);
 			watch.add(1);
-        	lblTime.setText(watch.toString());
-        }
+			watch.add(1);
+			lblTime.setText(watch.toString());
+		}
 	}
 }
