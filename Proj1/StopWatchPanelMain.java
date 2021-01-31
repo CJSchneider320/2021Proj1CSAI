@@ -15,7 +15,7 @@ public class StopWatchPanelMain extends JPanel {
 
 		JPanel panel = new JPanel();
 		panel.add(new StopWatchPanel());
-		//TO DO:  add two more StopWathPanel to the panel
+		//TO DO:  add two more StopWatchPanel to the panel
 
            suspendCheckBox = new JCheckBox("Suspend Timers");
            suspendCheckBox.setSelected(false);

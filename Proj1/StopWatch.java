@@ -245,72 +245,74 @@ public class StopWatch  {
 	}
 
 	public void add(StopWatch stopWatch) {
-		int tempMilli1 = convertToMilli(stopWatch);
-		int tempMilli2 = convertToMilli(this);
-		tempMilli1 += tempMilli2;
-		this.convertToStopWatch(tempMilli1);
+		if(!suspend) {
+			int tempMilli1 = convertToMilli(stopWatch);
+			int tempMilli2 = convertToMilli(this);
+			tempMilli1 += tempMilli2;
+			this.convertToStopWatch(tempMilli1);
+		}
 	}
 
 	public void sub(StopWatch stopWatch) {
-		int tempMilli1 = convertToMilli(stopWatch);
-		int tempMilli2 = convertToMilli(this);
-		tempMilli1 -= tempMilli2;
-		if (tempMilli1 < 0)
-			throw new IllegalArgumentException();
-		else
-			this.convertToStopWatch(tempMilli1);
+		if(!suspend) {
+			int tempMilli1 = convertToMilli(stopWatch);
+			int tempMilli2 = convertToMilli(this);
+			tempMilli1 -= tempMilli2;
+			if (tempMilli1 < 0)
+				throw new IllegalArgumentException();
+			else
+				this.convertToStopWatch(tempMilli1);
+		}
 	}
 
 	public void inc() {
-		int tempMilli = this.getMilliseconds();
-		tempMilli += 1;
-		if (tempMilli >= 1000) {
-			int tempSec = this.getSeconds();
-			tempSec += 1;
-			tempMilli = 0;
-			this.setMilliseconds(tempMilli);
-			if (tempSec >= 60) {
-				int tempMin = this.getMinutes();
-				tempMin += 1;
-				tempSec = 0;
-				this.setSeconds(tempSec);
-				this.setMinutes(tempMin);
-			}
-			else
-				this.setSeconds(tempSec);
+		if (!suspend) {
+			int tempMilli = this.getMilliseconds();
+			tempMilli += 1;
+			if (tempMilli >= 1000) {
+				int tempSec = this.getSeconds();
+				tempSec += 1;
+				tempMilli = 0;
+				this.setMilliseconds(tempMilli);
+				if (tempSec >= 60) {
+					int tempMin = this.getMinutes();
+					tempMin += 1;
+					tempSec = 0;
+					this.setSeconds(tempSec);
+					this.setMinutes(tempMin);
+				} else
+					this.setSeconds(tempSec);
+			} else
+				this.setMilliseconds(tempMilli);
+
 		}
-		else
-			this.setMilliseconds(tempMilli);
-
-
 	}
 
 	public void dec() {
-		if(this.getMilliseconds() == 0) {
-			if(this.getSeconds() == 0) {
-				if(this.getMinutes() == 0) {
-					throw new IllegalArgumentException();
-				}
-				else {
-					int tempMin = this.getMinutes();
-					tempMin -= 1;
-					this.setMinutes(tempMin);
-					this.setSeconds(59);
+		if (!suspend) {
+			if (this.getMilliseconds() == 0) {
+				if (this.getSeconds() == 0) {
+					if (this.getMinutes() == 0) {
+						throw new IllegalArgumentException();
+					} else {
+						int tempMin = this.getMinutes();
+						tempMin -= 1;
+						this.setMinutes(tempMin);
+						this.setSeconds(59);
+						this.setMilliseconds(999);
+					}
+				} else {
+					int tempSec = this.getSeconds();
+					tempSec -= 1;
+					this.setSeconds(tempSec);
 					this.setMilliseconds(999);
-				}
-			}
-			else {
-				int tempSec = this.getSeconds();
-				tempSec -= 1;
-				this.setSeconds(tempSec);
-				this.setMilliseconds(999);
 
+				}
+			} else {
+				int tempMilli = this.getMilliseconds();
+				tempMilli -= 1;
+				this.setMilliseconds(tempMilli);
 			}
-		}
-		else {
-			int tempMilli = this.getMilliseconds();
-			tempMilli -= 1;
-			this.setMilliseconds(tempMilli);
 		}
 	}
 
@@ -335,7 +337,7 @@ public class StopWatch  {
 		try {
 			out = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
 
-			//TO DO: finish - write fields to file
+			out.println(this.getMinutes() + " " + this.getSeconds() + " " + this.getMilliseconds());
 
 			out.close();
 
@@ -353,6 +355,9 @@ public class StopWatch  {
 		Scanner scanner = null;
 		try {
 			scanner = new Scanner(new File(filename));
+			this.minutes = scanner.nextInt();
+			this.seconds = scanner.nextInt();
+			this.milliseconds = scanner.nextInt();
 
 			//TO DO: read fields into instance variables
 
@@ -362,13 +367,15 @@ public class StopWatch  {
 
 	}
 
-	public static void setSuspend(boolean suspend) {
-		//TO DO: finish logic
+	public static void setSuspend(boolean sus) {
+		suspend = sus;
 	}
 
 	public static boolean isSuspended() {
-		//TO DO: finish logic
-		return false; // place holder
+		if (suspend = true)
+			return true;
+
+		return false;
 	}
 
 	public int getMinutes() {

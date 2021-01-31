@@ -6,10 +6,10 @@ public class StopWatchGUI {
 	public static void main(String args[]){
 
 		StopWatch test = new StopWatch("100:5:323");
+		test.save("testFile.txt");
+		test.load("testFile.txt");
 
-		System.out.println(test.getMinutes());
-		System.out.println(test.getSeconds());
-		System.out.println(test.getMilliseconds());
+		System.out.println(test.getMinutes() + " " + test.getSeconds() + " " + test.getMilliseconds());
 
 		JMenu fileMenu;
 		JMenuItem quitItem;
