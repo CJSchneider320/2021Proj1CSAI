@@ -317,7 +317,7 @@ public class TestStopWatch {
     }
 
     @Test
-    public void testAddWithSus() {
+    public void testAddNumWithSus() {
         StopWatch.setSuspend(true);
         StopWatch s = new StopWatch(5, 59, 300);
         s.add(500);
@@ -326,10 +326,29 @@ public class TestStopWatch {
     }
 
     @Test
-    public void testSubWithSus() {
+    public void testSubNumWithSus() {
         StopWatch.setSuspend(true);
         StopWatch s = new StopWatch(5, 59, 300);
         s.sub(500);
+        Assert.assertEquals(s.toString(), "5:59:300");
+
+    }
+    @Test
+    public void testAddSWWithSus() {
+        StopWatch.setSuspend(true);
+        StopWatch s = new StopWatch(5, 59, 300);
+        StopWatch s1 = new StopWatch(5, 59, 300);
+        s.add(s1);
+        Assert.assertEquals(s.toString(), "5:59:300");
+
+    }
+
+    @Test
+    public void testSubSWWithSus() {
+        StopWatch.setSuspend(true);
+        StopWatch s = new StopWatch(5, 59, 300);
+        StopWatch s1 = new StopWatch(5, 59, 300);
+        s.sub(s1);
         Assert.assertEquals(s.toString(), "5:59:300");
 
     }
@@ -362,6 +381,17 @@ public class TestStopWatch {
 
         Assert.assertNotEquals(s1, s2);
         Assert.assertEquals(s1, s4);
+
+    }
+    @Test
+    public void testEqualObj() {
+        StopWatch s1 = new StopWatch(5, 59, 300);
+        StopWatch s2 = new StopWatch(6, 01, 200);
+        StopWatch s3 = new StopWatch(5, 50, 200);
+        StopWatch s4 = new StopWatch(5, 59, 300);
+
+        Assert.assertTrue(s1.equals(s4));
+        Assert.assertFalse(s1.equals(s2));
 
     }
 
