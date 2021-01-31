@@ -9,6 +9,12 @@ public class TestStopWatch {
  * is functioning correctly.
  *
  */
+
+@Test (expected = IllegalArgumentException.class)
+    public void testStartTimeLength();
+        StopWatch s = new StopWatch("12:27:40");
+
+}
 //The next 3 tests check to see if public StopWatch(min, secs, mill) will detect a failure
 
 @Test (expected = IllegalArgumentException.class)
@@ -46,6 +52,11 @@ public class TestStopWatch {
     public void testConstructorParametersSuccessSeconds() {
         StopWatch s = new StopWatch(1, 2, 0);
         StopWatch s1 =  new StopWatch(1, 2, 999);
+    }
+
+@Test
+    public void testConstructorNull{
+        StopWatch s = new StopWatch(null);
     }
 
 //	// default constructor test
