@@ -51,13 +51,14 @@ public class StopWatch  {
 	public StopWatch(String startTime) {
 		if (startTime == null)
 			throw new IllegalArgumentException();
-		if (startTime == "") {
-			this.setMinutes(0);
-			this.setSeconds(0);
-			this.setMilliseconds(0);
-		}
 
-		if (startTime.length() >= 8) {
+
+		int colonCount = 0;
+		for (int i = 0; i < startTime.length(); i++) {
+			if(startTime.charAt(i) == ':')
+				colonCount++;
+		}
+		if (colonCount == 2) {
 			int colon = 0;
 			startTime = startTime + ":";
 			for (int inc = 0; inc < startTime.length(); inc = colon + 1) {
@@ -81,7 +82,7 @@ public class StopWatch  {
 				}
 			}
 		}
-		else if (startTime.length() == 6){
+		else if (colonCount == 1){
 			int colon = 0;
 			startTime = startTime + ":";
 			for (int inc = 0; inc < startTime.length(); inc = colon + 1) {
@@ -102,7 +103,7 @@ public class StopWatch  {
 			}
 
 		}
-		else if (startTime.length() > 0){
+		else if (colonCount == 0 && startTime != ""){
 			this.milliseconds = Integer.valueOf(startTime);
 			if (milliseconds < 0 || milliseconds > 999)
 				throw new IllegalArgumentException();
@@ -185,19 +186,19 @@ public class StopWatch  {
 		if (other == null)
 			throw new IllegalArgumentException();
 
-		if(this.getMinutes() >= other.getMinutes())
+		if(this.getMinutes() > other.getMinutes())
 			return 1;
-		else if(this.getMinutes() <= other.getMinutes())
+		else if(this.getMinutes() < other.getMinutes())
 			return -1;
 		else if(this.getMinutes() == other.getMinutes())
-			if(this.getSeconds() >= other.getSeconds())
+			if(this.getSeconds() > other.getSeconds())
 				return 1;
-		    else if(this.getSeconds() <= other.getSeconds())
+		    else if(this.getSeconds() < other.getSeconds())
 			    return -1;
 			else if(this.getSeconds() == other.getSeconds())
-				if(this.getMilliseconds() >= other.getMilliseconds())
+				if(this.getMilliseconds() > other.getMilliseconds())
 					return 1;
-				else if(this.getMilliseconds() <= other.getMilliseconds())
+				else if(this.getMilliseconds() < other.getMilliseconds())
 					return -1;
 				else if(this.getMilliseconds() == other.getMilliseconds())
 					return 0;
@@ -319,8 +320,8 @@ public class StopWatch  {
 		int tempMilli = this.getMilliseconds();
 
 		String tempWatch = tempMin + ":";
-		tempWatch += String.format("%01d", tempSec) + ":";
-		tempWatch += String.format("%02d",tempMilli);
+		tempWatch += String.format("%02d", tempSec) + ":";
+		tempWatch += String.format("%03d",tempMilli);
 
 		return tempWatch; // place holder
 
