@@ -77,7 +77,7 @@ public class TestStopWatch {
 
 //Work in progress
 
-@Test (expect =  IllegalArgumentException.class)
+@Test (expected =  IllegalArgumentException.class)
 	public void testDecMethod() {
 
 }
