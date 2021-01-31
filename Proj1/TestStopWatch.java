@@ -10,11 +10,17 @@ public class TestStopWatch {
  *
  */
 
-@Test (expected = IllegalArgumentException.class)
+@Test (expected = IllegalArgumentException.class){
     public void testStartTimeLength();
         StopWatch s = new StopWatch("12:27:40");
-
 }
+
+@Test (expected = IllegalArgumentException.class){
+    public void testStartTimeLength();
+        StopWatch s = new StopWatch("12:27:40");
+}
+
+
 //The next 3 tests check to see if public StopWatch(min, secs, mill) will detect a failure
 
 @Test (expected = IllegalArgumentException.class)
