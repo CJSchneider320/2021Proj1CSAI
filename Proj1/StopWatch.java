@@ -51,6 +51,11 @@ public class StopWatch  {
 	public StopWatch(String startTime) {
 		if (startTime == null)
 			throw new IllegalArgumentException();
+		if (startTime == "") {
+			this.setMinutes(0);
+			this.setSeconds(0);
+			this.setMilliseconds(0);
+		}
 
 		if (startTime.length() >= 8) {
 			int colon = 0;
@@ -97,10 +102,15 @@ public class StopWatch  {
 			}
 
 		}
-		else if (startTime.length() == 3){
+		else if (startTime.length() > 0){
 			this.milliseconds = Integer.valueOf(startTime);
 			if (milliseconds < 0 || milliseconds > 999)
 				throw new IllegalArgumentException();
+		}
+		else if (startTime == "") {
+			this.setMinutes(0);
+			this.setSeconds(0);
+			this.setMilliseconds(0);
 		}
 		else
 			throw new IllegalArgumentException();
@@ -157,7 +167,6 @@ public class StopWatch  {
 				if(stopWatch1.getMilliseconds() == stopWatch2.getMilliseconds())
 					return true;
 
-		else
 			return false;
 	}
 
@@ -167,11 +176,9 @@ public class StopWatch  {
 				StopWatch temp = (StopWatch) object;
 				if (StopWatch.equals(this, temp))
 					return true;
-				else
-					return false;
 			}
 		}
-
+	return false;
 	}
 
 	public int compareTo(StopWatch other) {
@@ -195,6 +202,7 @@ public class StopWatch  {
 				else if(this.getMilliseconds() == other.getMilliseconds())
 					return 0;
 
+	return 0;
 	}
 
 	private static int convertToMilli (StopWatch stopWatch) {
@@ -310,9 +318,9 @@ public class StopWatch  {
 		int tempSec = this.getSeconds();
 		int tempMilli = this.getMilliseconds();
 
-		String tempWatch = toString(tempMin) + ":";
+		String tempWatch = tempMin + ":";
 		tempWatch += String.format("%01d", tempSec) + ":";
-		tempWatch += String.format("%02d",tempMilli)
+		tempWatch += String.format("%02d",tempMilli);
 
 		return tempWatch; // place holder
 
