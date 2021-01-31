@@ -102,6 +102,8 @@ public class StopWatch  {
 			if (milliseconds < 0 || milliseconds > 999)
 				throw new IllegalArgumentException();
 		}
+		else
+			throw new IllegalArgumentException();
 
 	}
 
