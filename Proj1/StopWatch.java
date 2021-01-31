@@ -219,31 +219,82 @@ public class StopWatch  {
 
 	public void add(int milliseconds) {
 		if (!suspend) {
-			//TO DO: finish logic
+			for (int i = 0; i < milliseconds; i++) {
+				this.inc();
+			}
 		}
 	}
 
 	public void sub(int milliseconds) {
-		//TO DO: finish logic
+		if (!suspend) {
+			for (int i = 0; i < milliseconds; i++) {
+				this.dec();
+			}
+		}
 
 	}
 
 	public void add(StopWatch stopWatch) {
-		//TO DO: finish logic
-
+		int tempMilli = convertToMilli(stopWatch);
+		this.add(tempMilli);
 	}
 
 	public void sub(StopWatch stopWatch) {
-		//TO DO: finish logic
-
+		int tempMilli = convertToMilli(stopWatch);
+		this.sub(tempMilli);
 	}
 
 	public void inc() {
-		//TO DO: finish logic
+		int tempMilli = this.getMilliseconds();
+		tempMilli += 1;
+		if (tempMilli >= 1000) {
+			int tempSec = this.getSeconds();
+			tempSec += 1;
+			tempMilli = 0;
+			this.setMilliseconds(tempMilli);
+			if (tempSec >= 60) {
+				int tempMin = this.getMinutes();
+				tempMin += 1;
+				tempSec = 0;
+				this.setSeconds(tempSec);
+				this.setMinutes(tempMin);
+			}
+			else
+				this.setSeconds(tempSec);
+		}
+		else
+			this.setMilliseconds(tempMilli);
+
+
 	}
 
 	public void dec() {
-		//TO DO: finish logic
+		if(this.getMilliseconds() == 0) {
+			if(this.getSeconds() == 0) {
+				if(this.getMinutes() == 0) {
+					throw new IllegalArgumentException();
+				}
+				else {
+					int tempMin = this.getMinutes();
+					tempMin -= 1;
+					this.setMinutes(tempMin);
+					this.setSeconds(59);
+					this.setMilliseconds(999);
+				}
+			}
+			else {
+				int tempSec = this.getSeconds();
+				tempSec -= 1;
+				this.setSeconds(tempSec);
+				this.setMilliseconds(999);
+
+			}
+		}
+		else {
+			int tempMilli = this.getMilliseconds();
+			tempMilli -= 1;
+			this.setMilliseconds(tempMilli);
+		}
 	}
 
 	public String toString() {
