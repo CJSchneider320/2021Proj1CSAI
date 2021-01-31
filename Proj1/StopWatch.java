@@ -162,14 +162,15 @@ public class StopWatch  {
 	}
 
 	public boolean equals(Object object) {
-		if(this.getMinutes() == object.getMinutes())
-			if(this.getSeconds() == object.getSeconds())
-				if(this.getMilliseconds() == object.getMilliseconds())
+		if (object != null) {
+			if (object instanceof StopWatch) {
+				StopWatch temp = (StopWatch) object;
+				if (StopWatch.equals(this, temp))
 					return true;
-
 				else
 					return false;
-	}
+			}
+		}
 
 	}
 
@@ -235,13 +236,20 @@ public class StopWatch  {
 	}
 
 	public void add(StopWatch stopWatch) {
-		int tempMilli = convertToMilli(stopWatch);
-		this.add(tempMilli);
+		int tempMilli1 = convertToMilli(stopWatch);
+		int tempMilli2 = convertToMilli(this);
+		tempMilli1 += tempMilli2;
+		this.convertToStopWatch(tempMilli1);
 	}
 
 	public void sub(StopWatch stopWatch) {
-		int tempMilli = convertToMilli(stopWatch);
-		this.sub(tempMilli);
+		int tempMilli1 = convertToMilli(stopWatch);
+		int tempMilli2 = convertToMilli(this);
+		tempMilli1 -= tempMilli2;
+		if (tempMilli1 < 0)
+			throw new IllegalArgumentException();
+		else
+			this.convertToStopWatch(tempMilli1);
 	}
 
 	public void inc() {
@@ -298,8 +306,15 @@ public class StopWatch  {
 	}
 
 	public String toString() {
-		//TO DO: finish logic
-		return null; // place holder
+		int tempMin = this.getMinutes();
+		int tempSec = this.getSeconds();
+		int tempMilli = this.getMilliseconds();
+
+		String tempWatch = toString(tempMin) + ":";
+		tempWatch += String.format("%01d", tempSec) + ":";
+		tempWatch += String.format("%02d",tempMilli)
+
+		return tempWatch; // place holder
 
 	}
 
@@ -348,13 +363,15 @@ public class StopWatch  {
 	}
 
 	public int getMinutes() {
-		//TO DO: finish logic
 		return this.minutes;
 
 	}
 
 	public void setMinutes(int minutes) {
-		//TO DO: finish logic
+		if (minutes < 0)
+			throw new IllegalArgumentException();
+		else
+			this.minutes = minutes;
 	}
 
 	public int getSeconds() {
@@ -363,7 +380,10 @@ public class StopWatch  {
 	}
 
 	public void setSeconds(int seconds) {
-		//TO DO: finish logic
+		if (seconds < 0 || seconds > 59)
+			throw new IllegalArgumentException();
+		else
+			this.seconds = seconds;
 	}
 
 	public int getMilliseconds() {
@@ -372,7 +392,10 @@ public class StopWatch  {
 	}
 
 	public void setMilliseconds(int milliseconds) {
-		//TO DO: finish logic
+		if (milliseconds < 0 || milliseconds > 999)
+			throw new IllegalArgumentException();
+		else
+			this.milliseconds = milliseconds;
 	}
 
 }
