@@ -63,6 +63,7 @@ public class StopWatch  {
 	 * the starting time
 	 * @throws IllegalArgumentException when the input string
 	 * does not match the proper format (see description above)
+	 * and when null is passed in
 	 *
 	 */
 
@@ -303,7 +304,7 @@ public class StopWatch  {
 	 */
 
 	public boolean equals(Object object) {
-		if (object != null) {
+		if (object != null && this != null) {
 			if (object instanceof StopWatch) {
 				StopWatch temp = (StopWatch) object;
 				if (StopWatch.equals(this, temp))
@@ -489,11 +490,11 @@ public class StopWatch  {
 				throw new IllegalArgumentException();
 			int tempMilli1 = convertToMilli(stopWatch);
 			int tempMilli2 = convertToMilli(this);
-			tempMilli1 -= tempMilli2;
-			if (tempMilli1 < 0)
+			tempMilli2 = tempMilli2 - tempMilli1;
+			if (tempMilli2 < 0)
 				throw new IllegalArgumentException();
 			else
-				this.convertToStopWatch(tempMilli1);
+				this.convertToStopWatch(tempMilli2);
 		}
 	}
 
@@ -659,7 +660,7 @@ public class StopWatch  {
 	 */
 
 	public static boolean isSuspended() {
-		if (suspend = true)
+		if (suspend == true)
 			return true;
 
 		return false;
