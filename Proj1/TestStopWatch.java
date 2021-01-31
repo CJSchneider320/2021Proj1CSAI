@@ -10,6 +10,8 @@ public class TestStopWatch {
  *
  */
 
+//Tests the length of startTime to make sure it is correct
+
 @Test (expected = IllegalArgumentException.class)
     public void testStartTimeLength(){
         StopWatch s = new StopWatch("12:27:40");
@@ -22,6 +24,7 @@ public class TestStopWatch {
         StopWatch s1 = new StopWatch("40");
         StopWatch s2 = new StopWatch("5000:27:400");
         StopWatch s3 = new StopWatch("00:00:000");
+        StopWatch s4 = new StopWatch("");
     }
 
 //The next 3 tests check to see if public StopWatch(min, secs, mill) will detect a failure
