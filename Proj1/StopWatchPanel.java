@@ -17,10 +17,7 @@ public class StopWatchPanel extends JPanel{
     private Timer javaTimer;
 	
 	JButton startButton;
-	JTextField minField, secField, milliField;
-
-	//TO DO: declare the rest of JButtons and 
-	//TO DO: JTextFields
+	JTextField minField, secField, milliField, addField, subField, newField;
 
 	JLabel lblTime;
 
@@ -44,6 +41,29 @@ public class StopWatchPanel extends JPanel{
 		add(new JLabel("Miliseconds:"));
 		milliField = new JTextField("0", 3);
 		add(milliField);
+
+		add(new JButton("Stop"));
+
+		add(new JButton("Start"));
+
+		add(new JButton("Load"));
+
+		add(new JButton("Save"));
+
+		add(new JButton("Add"));
+		addField = new JTextField("0", 3);
+		add(addField);
+
+		add(new JButton("Subtract"));
+		subField = new JTextField("0", 3);
+		add(subField);
+
+		add(new JButton("New"));
+		newField = new JTextField("0:0:0", 3);
+		add(newField);
+
+		add(new JButton("Continue"));
+
 
 		//TO DO:  Include code to instantiate objects 
 		//TO DO: and add them to the JPanel -

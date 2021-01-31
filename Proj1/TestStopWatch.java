@@ -75,12 +75,6 @@ public class TestStopWatch {
 		Assert.assertEquals (s.toString(),"0:00:000");
 }
 
-//Work in progress
-
-@Test (expected =  IllegalArgumentException.class)
-	public void testDecMethod() {
-
-}
 
 	// default constructor test
 	@Test
