@@ -131,22 +131,43 @@ public class StopWatch  {
 	}
 
 	public StopWatch(int seconds, int milliseconds) {
-		//TO DO:
+		if (seconds < 0 || seconds > 59)
+			throw new IllegalArgumentException();
+
+		if (milliseconds < 0 || milliseconds > 999)
+			throw new IllegalArgumentException();
+
+		this.seconds = seconds;
+		this.milliseconds = milliseconds;
 	}
 
 
 	public StopWatch(int milliseconds) {
-		// TO DO:
+		if (milliseconds < 0 || milliseconds > 999)
+			throw new IllegalArgumentException();
+
+		this.milliseconds = milliseconds;
 	}
 
 	public static boolean equals(StopWatch stopWatch1, StopWatch stopWatch2) {
-		//TO DO:
-		return false; // place holder
+		if(stopWatch1.getMinutes() == stopWatch2.getMinutes())
+			if(stopWatch1.getSeconds() == stopWatch2.getSeconds())
+				if(stopWatch1.getMilliseconds() == stopWatch2.getMilliseconds())
+					return true;
+
+		else
+			return false;
 	}
 
 	public boolean equals(Object object) {
-		//TO DO:
-		return false; // place holder
+		if(this.getMinutes() == object.getMinutes())
+			if(this.getSeconds() == object.getSeconds())
+				if(this.getMilliseconds() == object.getMilliseconds())
+					return true;
+
+				else
+					return false;
+	}
 
 	}
 
@@ -154,8 +175,22 @@ public class StopWatch  {
 		if (other == null)
 			throw new IllegalArgumentException();
 
-		//TO DO: finish logic
-		return 0; // place holder
+		if(this.getMinutes() >= other.getMinutes())
+			return 1;
+		else if(this.getMinutes() <= other.getMinutes())
+			return -1;
+		else if(this.getMinutes() == other.getMinutes())
+			if(this.getSeconds() >= other.getSeconds())
+				return 1;
+		    else if(this.getSeconds() <= other.getSeconds())
+			    return -1;
+			else if(this.getSeconds() == other.getSeconds())
+				if(this.getMilliseconds() >= other.getMilliseconds())
+					return 1;
+				else if(this.getMilliseconds() <= other.getMilliseconds())
+					return -1;
+				else if(this.getMilliseconds() == other.getMilliseconds())
+					return 0;
 
 	}
 
@@ -163,9 +198,11 @@ public class StopWatch  {
 		if (stopWatch == null)
 			throw new IllegalArgumentException();
 
-		//TO DO: convert the stopWatch passed as input
-		//TO DO: parameter into milliseconds
-		return 0; // place holder
+		int currMilli = 0;
+		currMilli += stopWatch.getMinutes() * 60000;
+		currMilli += stopWatch.getSeconds() * 1000;
+		currMilli += stopWatch.getMilliseconds();
+		return currMilli;
 
 	}
 
@@ -268,7 +305,6 @@ public class StopWatch  {
 	}
 
 	public int getSeconds() {
-		//TO DO: finish logic
 		return this.seconds;
 
 	}
@@ -278,7 +314,6 @@ public class StopWatch  {
 	}
 
 	public int getMilliseconds() {
-		//TO DO: finish logic
 		return this.milliseconds;
 
 	}
