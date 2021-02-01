@@ -41,13 +41,13 @@ public class StopWatchPanel extends JPanel{
 		secField = new JTextField("0", 3);
 		add(secField);
 
-		add(new JLabel("Miliseconds:"));
+		add(new JLabel("Milliseconds:"));
 		milliField = new JTextField("0", 3);
 		add(milliField);
 
 
-
-		add(new JButton("Stop"));
+		stopButton = new JButton("Stop");
+		add(stopButton);
 
 		startButton = new JButton("Start");
 		add(startButton);
@@ -91,9 +91,14 @@ public class StopWatchPanel extends JPanel{
 		add(lblTime);
 
 		ButtonListener bl = new ButtonListener();
-		startButton.addActionListener(bl));
+		startButton.addActionListener(bl);
 		loadButton.addActionListener(bl);
-
+		stopButton.addActionListener(bl);
+		addButton.addActionListener(bl);
+		saveButton.addActionListener(bl);
+		subButton.addActionListener(bl);
+		continueButton.addActionListener(bl);
+		newButton.addActionListener(bl);
 
 //		startButton.addActionListener(new ButtonListener());
 //		TO DO:  Add action listeners for the JButtons
@@ -120,7 +125,9 @@ public class StopWatchPanel extends JPanel{
 				}
 			}
 
-			//TO DO:  Include ifs for each JButton
+			if (event.getSource() == stopButton){
+				javaTimer.stop();
+			}
 
 			lblTime.setText(watch.toString());
 		}
