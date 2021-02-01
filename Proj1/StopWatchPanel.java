@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 /**
  * Write a description  here.
@@ -16,8 +17,10 @@ public class StopWatchPanel extends JPanel{
 	private StopWatch watch;
 	private Timer javaTimer;
 
-	JButton startButton;
-	JTextField minField, secField, milliField, addField, subField, newField;
+	JButton startButton, stopButton, loadButton, addButton;
+	JButton subButton, saveButton, continueButton, newButton;
+	JTextField minField, secField, milliField, addField;
+	JTextField subField, newField;
 
 	JLabel lblTime;
 
@@ -42,27 +45,39 @@ public class StopWatchPanel extends JPanel{
 		milliField = new JTextField("0", 3);
 		add(milliField);
 
+
+
 		add(new JButton("Stop"));
 
-		add(new JButton("Start"));
+		startButton = new JButton("Start");
+		add(startButton);
 
-		add(new JButton("Load"));
+		loadButton = new JButton("Load");
+		add(loadButton);
 
-		add(new JButton("Save"));
+		saveButton = new JButton("Save");
+		add(saveButton);
 
-		add(new JButton("Add"));
+		addButton = new JButton("Add");
+		add(addButton);
+
 		addField = new JTextField("0", 3);
 		add(addField);
 
-		add(new JButton("Subtract"));
+		subButton = new JButton("Subtract");
+		add(subButton);
+
 		subField = new JTextField("0", 3);
 		add(subField);
 
-		add(new JButton("New"));
+		newButton = new JButton("New");
+		add(newButton);
+
 		newField = new JTextField("0:0:0", 3);
 		add(newField);
 
-		add(new JButton("Continue"));
+		continueButton = new JButton("Continue");
+		add(continueButton);
 
 
 		//TO DO:  Include code to instantiate objects
@@ -74,6 +89,10 @@ public class StopWatchPanel extends JPanel{
 		lblTime = new JLabel();
 		lblTime.setText(watch.toString());
 		add(lblTime);
+
+		ButtonListener bl = new ButtonListener();
+		startButton.addActionListener(bl));
+		loadButton.addActionListener(bl);
 
 
 //		startButton.addActionListener(new ButtonListener());
