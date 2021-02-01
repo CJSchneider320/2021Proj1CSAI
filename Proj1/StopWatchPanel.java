@@ -129,6 +129,43 @@ public class StopWatchPanel extends JPanel{
 				javaTimer.stop();
 			}
 
+			if (event.getSource() == addButton) {
+				try {
+					addField.getText();
+					p = Integer.parseInt(addField.getText());
+					watch.add(p);
+				} catch (NumberFormatException io) {
+					JOptionPane.showMessageDialog(null, "Enter an integer in all fields");
+				} catch (IllegalArgumentException e) {
+					JOptionPane.showMessageDialog(null, "Error in field");
+				}
+			}
+
+			if (event.getSource() == subButton) {
+				try {
+					subField.getText();
+					p = Integer.parseInt(subField.getText());
+					watch.sub(p);
+				} catch (NumberFormatException io) {
+					JOptionPane.showMessageDialog(null, "Enter an integer in all fields");
+				} catch (IllegalArgumentException e) {
+					JOptionPane.showMessageDialog(null, "Error in field");
+				}
+			}
+
+			if (event.getSource() == continueButton) {
+				try {
+					mins = Integer.parseInt(minField.getText());
+					sec = Integer.parseInt(secField.getText());
+					milli = Integer.parseInt(milliField.getText());
+					javaTimer.start();
+				} catch (NumberFormatException io) {
+					JOptionPane.showMessageDialog(null, "Enter an integer in all fields");
+				} catch (IllegalArgumentException e) {
+					JOptionPane.showMessageDialog(null, "Error in field");
+				}
+			}
+
 			lblTime.setText(watch.toString());
 		}
 
