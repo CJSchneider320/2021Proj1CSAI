@@ -195,7 +195,18 @@ public class StopWatchPanel extends JPanel{
 			}
 
 			if (event.getSource() == newButton){
-				newField.getText();
+				try {
+					newField.getText();
+					p = Integer.parseInt(newField.getText());
+					mins = Integer.parseInt(minField.getText());
+					sec = Integer.parseInt(secField.getText());
+					milli = Integer.parseInt(milliField.getText());
+					watch = new StopWatch(mins,sec,milli);
+				} catch (NumberFormatException io) {
+					JOptionPane.showMessageDialog(null, "Enter an integer in all fields");
+				} catch (IllegalArgumentException e) {
+					JOptionPane.showMessageDialog(null, "Error in field");
+				}
 
 			}
 
