@@ -11,65 +11,105 @@ public class TestStopWatch {
      * is functioning correctly.
      */
 
-//Tests the length of startTime to make sure it is correct
+//*** StopWatch() *****************************************************
+    @Test
+    public void testDefaultConstructor() {
+        StopWatch s = new StopWatch();
+        Assert.assertEquals(0, s.getMinutes());
+        Assert.assertEquals(0, s.getSeconds());
+        Assert.assertEquals(0, s.getMilliseconds());
+    }
+
+//*** public StopWatch(String startTime) ******************************
+
     @Test(expected = IllegalArgumentException.class)
-    public void testStartTimeLength() {
+    public void testStartTimeLengthMilli() {
         StopWatch s = new StopWatch("4000");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testStartTimeLength2() {
+    public void testStartTimeLengthMilliSec() {
         StopWatch s = new StopWatch("400:400");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testStartTimeLength3() {
+    public void testStartTimeLengthExtraColon3Param() {
         StopWatch s = new StopWatch(":50:27:400");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testStartTimeLength4() {
+    public void testStartTimeLengthForgotMinutes3P() {
         StopWatch s = new StopWatch(":27:400");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testStartTimeLength5() {
+    public void testStartTimeLengthForgotSeconds3P() {
         StopWatch s = new StopWatch("50::400");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testStartTimeLength6() {
+    public void testStartTimeLengthForgotMilliseconds3P() {
         StopWatch s = new StopWatch("50:27:");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testStartTimeLength7() {
+    public void testStartTimeLengthForgotSeconds2P() {
         StopWatch s = new StopWatch(":27");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testStartTimeLength8() {
+    public void testStartTimeLengthForgotMilliseconds2p() {
         StopWatch s7 = new StopWatch("50:");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testStartTimeLength9() {
+    public void testStartTimeLengthForgotMilliseconds1p() {
+        StopWatch s7 = new StopWatch(":");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testStartTimeLengthNegativeMinutes3P() {
         StopWatch s7 = new StopWatch("-12:27:400");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testStartTimeLength10() {
+    public void testStartTimeLengthNegativeSeconds3P() {
         StopWatch s7 = new StopWatch("12:-27:400");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testStartTimeLength11() {
+    public void testStartTimeLengthNegativeMilliseconds3P() {
         StopWatch s7 = new StopWatch("12:27:-400");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testStartTimeLength12() {
+    public void testStartTimeLengthNegativeSeconds2P() {
+        StopWatch s7 = new StopWatch("-27:400");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testStartTimeLengthNegativeMilliseconds2P() {
+        StopWatch s7 = new StopWatch("27:-400");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testStartTimeLengthNegativeMilliseconds1P() {
+        StopWatch s7 = new StopWatch("-400");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testStartTimeLengthNull() {
         StopWatch s7 = new StopWatch((StopWatch) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNegDoubleInput() {
+        new StopWatch("-59:-23");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAlphaInput() {
+        new StopWatch("a");
     }
 
     @Test
@@ -100,7 +140,7 @@ public class TestStopWatch {
         Assert.assertEquals(0, s4.getMilliseconds());
     }
 
-//The next 3 tests check to see if public StopWatch(min, secs, mill) will detect a failure
+//*** StopWatch(int minutes, int seconds, int milliseconds) ***********
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorThreeParametersMinutes() {
@@ -126,35 +166,6 @@ public class TestStopWatch {
     public void testConstructorThreeParametersMilliseconds1() {
         StopWatch s1 = new StopWatch(1, 2, 1000);
     }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testConstructorTwoParametersMilliseconds() {
-        StopWatch s1 = new StopWatch(2, 1000);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testConstructorTwoParametersMilliseconds1() {
-        StopWatch s1 = new StopWatch(2, -500);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testConstructorTwoParametersSeconds() {
-        StopWatch s1 = new StopWatch(70, 200);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testConstructorTwoParameterSeconds1() {
-        StopWatch s1 = new StopWatch(-2, 200);
-    }
-
-    @Test
-    public void testConstructorTwoParameters() {
-        StopWatch s = new StopWatch(2, 3);
-        Assert.assertEquals(0, s.getMinutes());
-        Assert.assertEquals(2, s.getSeconds());
-        Assert.assertEquals(3, s.getMilliseconds());
-    }
-//The next 3 tests check to see if public StopWatch(min, secs, mill) will not produce a failure
 
     @Test
     public void testConstructorParametersSuccessMinutes() {
@@ -185,59 +196,65 @@ public class TestStopWatch {
     @Test
     public void testConstructorParametersSuccessMilliSeconds() {
         StopWatch s = new StopWatch(1, 2, 0);
+        Assert.assertEquals(1, s.getMinutes());
+        Assert.assertEquals(2, s.getSeconds());
+        Assert.assertEquals(0, s.getMilliseconds());
+
         StopWatch s1 = new StopWatch(1, 2, 999);
+        Assert.assertEquals(1, s1.getMinutes());
+        Assert.assertEquals(2, s1.getSeconds());
+        Assert.assertEquals(999, s1.getMilliseconds());
+    }
+
+    //*** StopWatch(int seconds, int milliseconds) ********************
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorTwoParametersMilliseconds() {
+        StopWatch s1 = new StopWatch(2, 1000);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorTwoParametersMilliseconds1() {
+        StopWatch s1 = new StopWatch(2, -500);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorTwoParametersSeconds() {
+        StopWatch s1 = new StopWatch(70, 200);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructorTwoParameterSeconds1() {
+        StopWatch s1 = new StopWatch(-2, 200);
     }
 
     @Test
-    public void testConstructorNull() {
-        StopWatch s = new StopWatch();
+    public void testConstructorTwoParametersSec() {
+        StopWatch s = new StopWatch(0, 3);
         Assert.assertEquals(0, s.getMinutes());
         Assert.assertEquals(0, s.getSeconds());
-        Assert.assertEquals(0, s.getMilliseconds());
+        Assert.assertEquals(3, s.getMilliseconds());
+
+        StopWatch s1 = new StopWatch(59, 3);
+        Assert.assertEquals(0, s1.getMinutes());
+        Assert.assertEquals(59, s1.getSeconds());
+        Assert.assertEquals(3, s1.getMilliseconds());
     }
 
     @Test
-    public void testDefaultConstructor() {
-        StopWatch s = new StopWatch();
+    public void testConstructorTwoParametersMillis() {
+        StopWatch s = new StopWatch(5, 0);
         Assert.assertEquals(0, s.getMinutes());
-        Assert.assertEquals(0, s.getSeconds());
+        Assert.assertEquals(5, s.getSeconds());
         Assert.assertEquals(0, s.getMilliseconds());
+        StopWatch s1 = new StopWatch(5, 999);
+        Assert.assertEquals(0, s1.getMinutes());
+        Assert.assertEquals(5, s1.getSeconds());
+        Assert.assertEquals(999, s1.getMilliseconds());
     }
 
-    @Test
-    public void testConstructor3Parameters() {
-        StopWatch s = new StopWatch(2, 3, 4);
-        Assert.assertEquals(2, s.getMinutes());
-        Assert.assertEquals(3, s.getSeconds());
-        Assert.assertEquals(4, s.getMilliseconds());
-    }
+//*** StopWatch(int milliseconds) *********************************
 
-    @Test
-    public void testConstructor() {
-        StopWatch s = new StopWatch(5, 10, 300);
-        Assert.assertEquals(5, s.getMinutes());
-        Assert.assertEquals(10, s.getSeconds());
-        Assert.assertEquals(300, s.getMilliseconds());
-
-        StopWatch s1 = new StopWatch("20:10:8");
-        Assert.assertEquals(20, s1.getMinutes());
-        Assert.assertEquals(10, s1.getSeconds());
-        Assert.assertEquals(8, s1.getMilliseconds());
-
-        StopWatch s2 = new StopWatch("20:8");
-        Assert.assertEquals(0, s2.getMinutes());
-        Assert.assertEquals(20, s2.getSeconds());
-        Assert.assertEquals(8, s2.getMilliseconds());
-
-        StopWatch s3 = new StopWatch("8");
-        Assert.assertEquals(0, s3.getMinutes());
-        Assert.assertEquals(0, s3.getSeconds());
-        Assert.assertEquals(8, s3.getMilliseconds());
-
-    }
-
-    // There can only be one test here
-    // no more lines of code after "new StopWatch("-2");"
     @Test(expected = IllegalArgumentException.class)
     public void testNegSingleInput2() {
         new StopWatch(-2);
@@ -245,23 +262,20 @@ public class TestStopWatch {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNegDouble1Input() {
-        new StopWatch("-59:-23");
+    public void testLargeSingleInput2() {
+        new StopWatch(1000);
 
+    }
+    @Test
+    public void testSingleInput() {
+        StopWatch s = new StopWatch(300);
+        Assert.assertEquals(0, s.getMinutes());
+        Assert.assertEquals(0,s.getSeconds());
+        Assert.assertEquals(300,s.getMilliseconds());
     }
 
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNegDouble2aInput() {
-        new StopWatch("2:-2");
-
-    }
-
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testAlphaInput() {
-        new StopWatch("a");
-    }
+//*** add(int milliseconds) ***************************************
 
     @Test
     public void testAddMethod() {
@@ -291,6 +305,17 @@ public class TestStopWatch {
     }
 
     @Test
+    public void testAddNumWithSus() {
+        StopWatch.setSuspend(true);
+        StopWatch s = new StopWatch(5, 59, 300);
+        s.add(500);
+        Assert.assertEquals(s.toString(), "5:59:300");
+
+    }
+
+//*** sub(int milliseconds) ***************************************
+
+    @Test
     public void testSubMethod() {
         StopWatch.setSuspend(false);
         StopWatch s1 = new StopWatch(5, 59, 300);
@@ -317,15 +342,6 @@ public class TestStopWatch {
     }
 
     @Test
-    public void testAddNumWithSus() {
-        StopWatch.setSuspend(true);
-        StopWatch s = new StopWatch(5, 59, 300);
-        s.add(500);
-        Assert.assertEquals(s.toString(), "5:59:300");
-
-    }
-
-    @Test
     public void testSubNumWithSus() {
         StopWatch.setSuspend(true);
         StopWatch s = new StopWatch(5, 59, 300);
@@ -333,6 +349,9 @@ public class TestStopWatch {
         Assert.assertEquals(s.toString(), "5:59:300");
 
     }
+
+//*** add(StopWatch stopWatch) ****************************************
+
     @Test
     public void testAddSWWithSus() {
         StopWatch.setSuspend(true);
@@ -342,6 +361,8 @@ public class TestStopWatch {
         Assert.assertEquals(s.toString(), "5:59:300");
 
     }
+
+//*** sub(StopWatch stopWatch) ****************************************
 
     @Test
     public void testSubSWWithSus() {
@@ -353,6 +374,8 @@ public class TestStopWatch {
 
     }
 
+//*** inc() ***********************************************************
+
     @Test
     public void testIncWithSus() {
         StopWatch.setSuspend(true);
@@ -361,6 +384,8 @@ public class TestStopWatch {
         Assert.assertEquals(s.toString(), "5:59:300");
 
     }
+
+//*** dec() ***********************************************************
 
     @Test
     public void testDecWithSus() {
@@ -371,6 +396,7 @@ public class TestStopWatch {
 
     }
 
+//*** equals(Object object) *******************************************
 
     @Test
     public void testEqual() {
@@ -383,6 +409,7 @@ public class TestStopWatch {
         Assert.assertEquals(s1, s4);
 
     }
+
     @Test
     public void testEqualObj() {
         StopWatch s1 = new StopWatch(5, 59, 300);
@@ -394,6 +421,8 @@ public class TestStopWatch {
         Assert.assertFalse(s1.equals(s2));
 
     }
+
+//*** compareTo(StopWatch other) **************************************
 
     @Test
     public void testCompareTo() {
@@ -407,6 +436,8 @@ public class TestStopWatch {
         Assert.assertEquals(0, s1.compareTo(s4));
 
     }
+
+//*** save(String filename) & load(String filename) *******************
 
     @Test
     public void testLoadSave() {
@@ -439,6 +470,8 @@ public class TestStopWatch {
         s1.load(null);
     }
 
+//*** setSuspend(boolean sus) $ isSuspended() *************************
+
     @Test
     public void testMutate() {
         StopWatch s1 = new StopWatch(5, 59, 300);
@@ -450,13 +483,6 @@ public class TestStopWatch {
         StopWatch.setSuspend(false);
     }
 
-    @Test
-    public void equalsTest() {
-        StopWatch s1 = new StopWatch(5, 59, 300);
-        StopWatch s2 = new StopWatch(5, 59, 300);
-
-        Assert.assertEquals(s1, s2);
-    }
 
     @Test
     public void testSuspendT() {
@@ -472,27 +498,14 @@ public class TestStopWatch {
 
     }
 
+//*** setMinutes(int minutes) *****************************************
+
     @Test
     public void testSetMin() {
         StopWatch s = new StopWatch(1, 2, 3);
         s.setMinutes(8);
         Assert.assertEquals(s.getMinutes(), 8);
 
-    }
-
-    @Test
-    public void testSetSec() {
-        StopWatch s = new StopWatch(1, 2, 3);
-        s.setSeconds(8);
-        Assert.assertEquals(s.getSeconds(), 8);
-
-    }
-
-    @Test
-    public void testSetMilli() {
-        StopWatch s = new StopWatch(1, 2, 3);
-        s.setMilliseconds(8);
-        Assert.assertEquals(s.getMilliseconds(), 8);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -502,11 +515,31 @@ public class TestStopWatch {
 
     }
 
+//*** setSeconds(int seconds) *****************************************
+
+    @Test
+    public void testSetSec() {
+        StopWatch s = new StopWatch(1, 2, 3);
+        s.setSeconds(8);
+        Assert.assertEquals(s.getSeconds(), 8);
+
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testSetSecNeg() {
         StopWatch s = new StopWatch(1, 2, 3);
         s.setSeconds(-8);
 
+    }
+
+//*** setMilliseconds(int milliseconds) *******************************
+
+
+    @Test
+    public void testSetMilli() {
+        StopWatch s = new StopWatch(1, 2, 3);
+        s.setMilliseconds(8);
+        Assert.assertEquals(s.getMilliseconds(), 8);
     }
 
     @Test(expected = IllegalArgumentException.class)
