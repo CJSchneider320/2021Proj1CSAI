@@ -148,8 +148,7 @@ public class StopWatch {
             this.setMinutes(0);
             this.setSeconds(0);
             this.setMilliseconds(0);
-        } else
-            throw new IllegalArgumentException();
+        }
 
     }
 
@@ -271,8 +270,6 @@ public class StopWatch {
      */
 
     public static boolean equals(StopWatch stopWatch1, StopWatch stopWatch2) {
-        if (stopWatch1 == null || stopWatch2 == null)
-            throw new IllegalArgumentException();
         if (stopWatch1.getMinutes() == stopWatch2.getMinutes())
             if (stopWatch1.getSeconds() == stopWatch2.getSeconds())
                 if (stopWatch1.getMilliseconds() == stopWatch2.getMilliseconds())
@@ -318,8 +315,6 @@ public class StopWatch {
      */
 
     public int compareTo(StopWatch other) {
-        if (other == null)
-            throw new IllegalArgumentException();
 
         if (this.getMinutes() > other.getMinutes())
             return 1;
@@ -355,8 +350,6 @@ public class StopWatch {
      */
 
     private static int convertToMilli(StopWatch stopWatch) {
-        if (stopWatch == null)
-            throw new IllegalArgumentException();
 
         int currMilli = 0;
         currMilli += stopWatch.getMinutes() * 60000;
@@ -451,8 +444,6 @@ public class StopWatch {
 
     public void add(StopWatch stopWatch) {
         if (!suspend) {
-            if (stopWatch == null)
-                throw new IllegalArgumentException();
             int tempMilli1 = convertToMilli(stopWatch);
             int tempMilli2 = convertToMilli(this);
             tempMilli1 += tempMilli2;
@@ -474,15 +465,10 @@ public class StopWatch {
 
     public void sub(StopWatch stopWatch) {
         if (!suspend) {
-            if (stopWatch == null)
-                throw new IllegalArgumentException();
             int tempMilli1 = convertToMilli(stopWatch);
             int tempMilli2 = convertToMilli(this);
             tempMilli2 = tempMilli2 - tempMilli1;
-            if (tempMilli2 < 0)
-                throw new IllegalArgumentException();
-            else
-                this.convertToStopWatch(tempMilli2);
+            this.convertToStopWatch(tempMilli2);
         }
     }
 
@@ -597,6 +583,7 @@ public class StopWatch {
 
         } catch (IOException e) {
             e.printStackTrace();
+            throw new IllegalArgumentException();
         }
 
     }
