@@ -166,6 +166,19 @@ public class StopWatchPanel extends JPanel{
 				}
 			}
 
+			if (event.getSource() == saveButton){
+
+			}
+
+			if (event.getSource() == loadButton){
+
+			}
+
+			if (event.getSource() == newButton){
+				newField.getText();
+
+			}
+
 			lblTime.setText(watch.toString());
 		}
 
