@@ -167,11 +167,31 @@ public class StopWatchPanel extends JPanel{
 			}
 
 			if (event.getSource() == saveButton){
+				int input = 1;
+				int minTemp, secTemp, milliTemp;
+					try {
+						String filename = "save";
+						filename = JOptionPane.showInputDialog("Please input the name of the file you want to " +
+							"save this StopWatch to (without .txt)");
 
+						watch.save(filename);
+					}
+					catch (IllegalArgumentException e) {
+						JOptionPane.showMessageDialog(null, "Error in field");
+				}
 			}
 
 			if (event.getSource() == loadButton){
+				try {
+					String filename = "load";
+					filename = JOptionPane.showInputDialog("Please input the name of the file you want to " +
+							"load a StopWatch from (without .txt)");
 
+					watch.load(filename);
+				}
+				catch (IllegalArgumentException e) {
+					JOptionPane.showMessageDialog(null, "Error in field");
+				}
 			}
 
 			if (event.getSource() == newButton){
