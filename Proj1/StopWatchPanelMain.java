@@ -39,10 +39,16 @@ public class StopWatchPanelMain extends JPanel {
 				System.exit(1);
 
 			if(e.getSource() == suspendCheckBox) {
-			//TO DO: finish logic
+				if(StopWatch.isSuspended() == false)
+					StopWatch.setSuspend(true);
+				else if (StopWatch.isSuspended() == true)
+					StopWatch.setSuspend(false);
+			}
+
+
 
 			}
 		}
 	}
-}
+
 
