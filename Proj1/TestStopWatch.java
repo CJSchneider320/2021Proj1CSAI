@@ -303,12 +303,12 @@ public class TestStopWatch {
         s1 = new StopWatch(5, 59, 300);
         StopWatch s2 = new StopWatch(2, 2, 300);
         s1.add(s2);
-        System.out.println(s1);
+        //System.out.println(s1);
         Assert.assertEquals(s1.toString(), "8:01:600");
 
         for (int i = 0; i < 15000; i++)
             s1.inc();
-        System.out.println(s1);
+        //System.out.println(s1);
         Assert.assertEquals(s1.toString(), "8:16:600");
     }
 
@@ -341,12 +341,12 @@ public class TestStopWatch {
         s1 = new StopWatch(5, 59, 300);
         StopWatch s2 = new StopWatch(2, 2, 300);
         s1.sub(s2);
-        System.out.println(s1);
+        //System.out.println(s1);
         Assert.assertEquals(s1.toString(), "3:57:000");
 
         for (int i = 0; i < 15000; i++)
             s1.dec();
-        System.out.println(s1);
+        //System.out.println(s1);
         Assert.assertEquals(s1.toString(), "3:42:000");
     }
 
