@@ -9,7 +9,7 @@ public class StopWatchGUI {
         test.save("testFile.txt");
         test.load("testFile.txt");
 
-        System.out.println(test.getMinutes() + " " + test.getSeconds() + " " + test.getMilliseconds());
+        //System.out.println(test.getMinutes() + " " + test.getSeconds() + " " + test.getMilliseconds());
 
         JMenu fileMenu;
         JMenuItem quitItem;
