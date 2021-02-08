@@ -342,6 +342,13 @@ public class TestStopWatch {
         new StopWatch(1000);
 
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFractionSingleInput2() {
+        new StopWatch(12/24);
+
+    }
+
     @Test
     public void testSingleInput() {
         StopWatch s = new StopWatch(300);
