@@ -1,9 +1,14 @@
 package Proj1;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
+
 public class TestStopWatch {
+    private static String testFile = "test";
 
     /**
      * The following are simple random JUnit test cases... After talking with your
@@ -514,7 +519,7 @@ public class TestStopWatch {
         StopWatch s1 = new StopWatch(5, 59, 300);
         StopWatch s2 = new StopWatch(5, 59, 300);
 
-        s1.save("file1");
+        s1.save(testFile);
         s1 = new StopWatch();  // resets to zero
 
         s1.load(null);
@@ -531,9 +536,15 @@ public class TestStopWatch {
     @Test(expected = IllegalArgumentException.class)
     public void testLoadError() {
         StopWatch s1 = new StopWatch(5, 59, 300);
+        s1.load("?");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testLoadEmptyFileError() {
+        StopWatch s1 = new StopWatch(5, 59, 300);
         StopWatch s2 = new StopWatch(5, 59, 300);
 
-        s1.load("?");
+        s1.load("emptyFile");
     }
 //*** setSuspend(boolean sus) $ isSuspended() *************************
 

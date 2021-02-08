@@ -119,6 +119,7 @@ public class StopWatch {
             for (int inc = 0; inc < startTime.length(); inc = colon + 1) {
                 colon = startTime.indexOf(":", inc);
                 if (colon != -1) {
+ //                   int timeSegment = Integer.parseInt(startTime.substring(inc, colon));
 
                     if (seconds == 0) {
                         try {
@@ -325,13 +326,14 @@ public class StopWatch {
                 return 1;
             else if (this.getSeconds() < other.getSeconds())
                 return -1;
-            else if (this.getSeconds() == other.getSeconds())
+             else if (this.getSeconds() == other.getSeconds())
                 if (this.getMilliseconds() > other.getMilliseconds())
                     return 1;
                 else if (this.getMilliseconds() < other.getMilliseconds())
                     return -1;
                 else if (this.getMilliseconds() == other.getMilliseconds())
                     return 0;
+
 
         return 0;
     }
@@ -570,12 +572,14 @@ public class StopWatch {
      */
 
     public void save(String filename) {
-        if (filename == null)
+        if (!createFile(filename)) {
             throw new IllegalArgumentException();
+        }
 
         PrintWriter out = null;
         try {
-            out = new PrintWriter(new BufferedWriter(new FileWriter(filename + ".txt")));
+            File f = new File(filename + ".txt");
+            out = new PrintWriter(new BufferedWriter(new FileWriter(f)));
 
             out.println(this.getMinutes() + " " + this.getSeconds() + " " + this.getMilliseconds());
 
@@ -585,7 +589,6 @@ public class StopWatch {
             e.printStackTrace();
             throw new IllegalArgumentException();
         }
-
     }
 
     /******************************************************************
@@ -600,21 +603,39 @@ public class StopWatch {
      */
 
     public void load(String filename) {
-        if (filename == null)
+        if (!createFile(filename)) {
             throw new IllegalArgumentException();
+        }
 
         Scanner scanner = null;
         try {
             scanner = new Scanner(new File(filename + ".txt"));
-            this.minutes = scanner.nextInt();
-            this.seconds = scanner.nextInt();
-            this.milliseconds = scanner.nextInt();
-
-
+            try {
+                this.minutes = scanner.nextInt();
+                this.seconds = scanner.nextInt();
+                this.milliseconds = scanner.nextInt();
+            } catch (Exception e) {
+                throw new IllegalArgumentException();
+            }
         } catch (FileNotFoundException e) {
             throw new IllegalArgumentException();
         }
 
+    }
+
+    private boolean createFile(String filename) {
+        if (filename == null) {
+            return false;
+        }
+
+        File f = new File(filename + ".txt");
+        try {
+            boolean fileCreated = f.createNewFile();
+        } catch (IOException ioe) {
+            return false;
+        }
+
+        return true;
     }
 
     /******************************************************************
