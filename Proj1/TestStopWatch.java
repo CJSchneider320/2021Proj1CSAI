@@ -1,11 +1,11 @@
 package Proj1;
 
 import org.junit.Assert;
-import org.junit.BeforeClass;
+// import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.IOException;
+// import java.io.File;
+// import java.io.IOException;
 
 public class TestStopWatch {
     private static String testFile = "test";
@@ -115,6 +115,56 @@ public class TestStopWatch {
     @Test(expected = IllegalArgumentException.class)
     public void testAlphaInput() {
         new StopWatch("a");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAllColons(){
+        new StopWatch(": : :");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testDecimalsMilli(){
+        new StopWatch(".23");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testDecimalsSec(){
+        new StopWatch(":.25:14");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testDecimalsMin(){
+        new StopWatch(".12:25:14");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testDecimalsOverColons(){
+        new StopWatch("12.22.45");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testLetters(){
+        new StopWatch("apple");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSymbols(){
+        new StopWatch("!@#$%^&*");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFractions(){
+        new StopWatch("12/24");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testPercent(){
+        new StopWatch("40%");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWholeFraction(){
+        new StopWatch("24/2");
     }
 
     @Test
