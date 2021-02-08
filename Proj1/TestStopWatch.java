@@ -118,8 +118,13 @@ public class TestStopWatch {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testAllColons(){
+    public void test3Colons(){
         new StopWatch(": : :");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testOnlyColonsCorrectAmount(){
+        new StopWatch(": : ");
     }
 
     @Test(expected = IllegalArgumentException.class)
