@@ -343,9 +343,10 @@ public class TestStopWatch {
 
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFractionSingleInput2() {
-        new StopWatch(12/24);
+        StopWatch s1 = new StopWatch (12/24);
+        Assert.assertEquals(s1.getMilliseconds(), 0);
 
     }
 
